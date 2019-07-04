@@ -11,7 +11,7 @@ private:
 
 	void clear(DataNode *);
 	int getHeight(DataNode *, int = 0);
-	bool removeNode(DataNode *, DataNode * = NULL);
+	DataNode * removeNode(DataNode *, DataNode * = NULL);
 	DataNode * findMin(DataNode *);
 	
 	void displayPreOrder(DataNode *);

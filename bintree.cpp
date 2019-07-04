@@ -58,44 +58,45 @@ bool BinTree::addNode(int id, string info){
 }
 
 bool BinTree::removeNode(int id){
-	DataNode * parent = NULL, * search = root;
-	while(search && search->id != id){
-		parent = search;
-		search = id < search->id ? search->left : search->right;
+	DataNode * parent = NULL, * target = root;
+	while(target && target->id != id){
+		parent = target;
+		target = target->id > id ? target->left : target->right;
 	}
-	if(search == NULL) return false; //id not found.
-	if(search->left && search->right){
-		DataNode * minParent = root, * min = search->right;
-		while(min->left){
-			minParent = min;
-			min = min->left;
+	
+	if(target && target->id == id){
+		if(target->left && target->right){
+			DataNode * minParent = target, * min = target->right;
+			while(min->left){
+				minParent = min;
+				min = min->left;
+			}
+			
+			target->id = min->id;
+			target->information = min->information;
+			if(minParent == root) root->right = NULL;
+			else minParent->left == min ? minParent->left = NULL : minParent->right = NULL;
+			delete min;
 		}
-		search->id = min->id;
-		search->information = min->information;
-		removeNode(min, minParent);
+		else if(target->left){
+			if(root == target) root = target->left;
+			else parent->left == target ? parent->left = target->left : parent->right = target->left;
+			delete target;
+		}			
+		else if(target->right){
+			if(root == target) root = target->right;
+			else parent->left == target ? parent->left = target->right : parent->right = target->right;
+			delete target;
+		}			
+		else{
+			if(root == target) root = NULL;
+			else parent->left == target ? parent->left = NULL : parent->right = NULL;
+			delete target;
+		}
+		size--;
+		return true;
 	}
-	else removeNode(search, parent);
-	return true;
-}
-
-bool BinTree::removeNode(DataNode * target, DataNode * parent){
-	if(target->left){
-		if(parent) parent->left == target ? parent->left = target->left : parent->right = target->left;
-		else root = target->left;
-	}
-	else if(target->right){
-		if(parent) parent->right == target ? parent->right = target->right : parent->left = target->right;
-		else root = target->right;
-	}
-	else if(parent) parent->left == target ? parent->left = NULL : parent->right = NULL;
-	delete target;
-	size--;
-	return true;
-}
-
-DataNode * findMin(DataNode * actingRoot){
-	while(actingRoot->left) actingRoot = actingRoot->left;
-	return actingRoot;
+	else return false;
 }
 
 //This method is longer since it does not use recursion and contains the work for contains()
