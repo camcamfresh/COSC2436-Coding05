@@ -1,3 +1,10 @@
+/* Name: Cameron Salazar
+ * Assignment: Coding05 - Binary Search Tree
+ * Data: July 4, 2019
+ * Purpose: This assignment explores a basic binary search tree that does not include balancing; main.cpp test the class BinTree from bintree.cpp. Many methods have wrappers bintree.cpp for recursion, except addNode, getNode and removeNode which are longer as a result (however may operate faster with larger data sets).
+ * Note: The parameters for the method getNode have been reversed from (Data *, id) to (id, Data *), with permission. As a result, calls to getNode in main.cpp had to be altered. This allows the contains method to use getNode.
+*/ 
+
 #include "bintree.h"
 	
 BinTree::BinTree(){
@@ -18,7 +25,7 @@ int BinTree::getCount(){
 }
 
 bool BinTree::getRootData(Data * output){
-	if(root) *output = *root; //object slicing
+	if(root) *output = *root; //structure slicing
 	else{
 		output->id = -1;
 		output->information = "";
@@ -31,6 +38,7 @@ void BinTree::clear(){
 	root = NULL;
 	size = 0;
 }
+
 void BinTree::clear(DataNode * actingRoot){
 	if(actingRoot->left) clear(actingRoot->left);
 	if(actingRoot->right) clear(actingRoot->right);
@@ -57,6 +65,7 @@ bool BinTree::addNode(int id, string info){
 	return true;
 }
 
+//This method is longer since it does not use recursion. This is beneficial for large data trees.
 bool BinTree::removeNode(int id){
 	DataNode * parent = NULL, * target = root;
 	while(target && target->id != id){
@@ -99,7 +108,7 @@ bool BinTree::removeNode(int id){
 	else return false;
 }
 
-//This method is longer since it does not use recursion and contains the work for contains()
+//This method is longer since it does not use recursion and contains the work for contains().
 bool BinTree::getNode(int id, Data * output){
 	if(root){
 		DataNode * search = root;
