@@ -85,7 +85,7 @@ bool BinTree::contains(int id){
 }
 
 int BinTree::getHeight(){
-	return getHeight(root) + 1;
+	return root ? getHeight(root) + 1 : 0;
 }
 
 int BinTree::getHeight(DataNode * actingRoot, int height){
@@ -100,14 +100,50 @@ int BinTree::getHeight(DataNode * actingRoot, int height){
 }
 	
 void BinTree::displayPreOrder(){
-	
+	if(root) displayPreOrder(root);
+	std::cout << std::endl;
 }
+
+void BinTree::displayPreOrder(DataNode * actingRoot){
+	std::cout << actingRoot->id << " " << actingRoot->information << std::endl;
+	if(actingRoot->left) displayPreOrder(actingRoot->left);
+	if(actingRoot->right) displayPreOrder(actingRoot->right);
+}
+
 void BinTree::displayPostOrder(){
-	
+	if(root) displayPostOrder(root);
+	std::cout << std::endl;
 }
+
+void BinTree::displayPostOrder(DataNode * actingRoot){
+	if(actingRoot->left) displayPostOrder(actingRoot->left);
+	if(actingRoot->right) displayPostOrder(actingRoot->right);
+	std::cout << actingRoot->id << " " << actingRoot->information << std::endl;
+}
+
 void BinTree::displayInOrder(){
-	
+	if(root) displayInOrder(root);
+	std::cout << std::endl;
 }
+
+void BinTree::displayInOrder(DataNode * actingRoot){
+	if(actingRoot->left) displayInOrder(actingRoot->left);
+	std::cout << actingRoot->id << " " << actingRoot->information << std::endl;
+	if(actingRoot->right) displayInOrder(actingRoot->right);
+}
+
 void BinTree::displayTree(){
+	std::cout << "DISPLAY TREE\n==============================================" << std::endl;
+	std::cout << "Tree is " << (isEmpty() ? "empty\n" : "not empty\n");
+	std::cout << "Height " << getHeight() << std::endl;
+	std::cout << "Node count: " << size << std::endl << std::endl;
 	
+	std::cout << "Pre-Order Transversal" << std::endl;
+	displayPreOrder();
+	
+	std::cout << "In-Order Transversal" << std::endl;
+	displayInOrder();
+	
+	std::cout << "Post-Order Transversal" << std::endl;
+	displayPostOrder();
 }

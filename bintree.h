@@ -2,6 +2,7 @@
 #define BINTREE_H
 
 #include "data.h"
+#include <iostream>
 
 class BinTree{
 private:
@@ -10,6 +11,9 @@ private:
 
 	void clear(DataNode *);
 	int getHeight(DataNode *, int = 0);
+	void displayPreOrder(DataNode *);
+	void displayPostOrder(DataNode *);
+	void displayInOrder(DataNode *);
 public:
 	BinTree();
 	~BinTree();
