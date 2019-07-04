@@ -8,6 +8,8 @@ private:
 	DataNode * root;
 	int size;
 
+	void clear(DataNode *);
+	int getHeight(DataNode *, int = 0);
 public:
 	BinTree();
 	~BinTree();
@@ -20,7 +22,7 @@ public:
 	bool removeNode(int);
 	bool getNode(int, Data * = NULL);
 	bool contains(int);
-	bool getHeight();
+	int getHeight();
 	
 	void displayPreOrder();
 	void displayPostOrder();

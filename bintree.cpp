@@ -27,8 +27,16 @@ bool BinTree::getRootData(Data * output){
 }
 
 void BinTree::clear(){
-	
+	clear(root);
+	root = NULL;
+	size = 0;
 }
+void BinTree::clear(DataNode * actingRoot){
+	if(actingRoot->left) clear(actingRoot->left);
+	if(actingRoot->right) clear(actingRoot->right);
+	delete actingRoot;
+}
+
 bool BinTree::addNode(int id, string info){
 	DataNode * parent, * search = root;
 	while(search){
@@ -75,8 +83,20 @@ bool BinTree::getNode(int id, Data * output){
 bool BinTree::contains(int id){
 	return getNode(id);
 }
-bool BinTree::getHeight(){
-	return false;
+
+int BinTree::getHeight(){
+	return getHeight(root) + 1;
+}
+
+int BinTree::getHeight(DataNode * actingRoot, int height){
+	if(actingRoot){
+		int lheight = 0, rheight = 0;
+		if(actingRoot->left) lheight = getHeight(actingRoot->left, height) + 1;
+		if(actingRoot->right) rheight = getHeight(actingRoot->right, height) + 1;
+		height = lheight < rheight ? rheight : lheight;
+		
+	}
+	return height;
 }
 	
 void BinTree::displayPreOrder(){
