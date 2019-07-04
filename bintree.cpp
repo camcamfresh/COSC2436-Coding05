@@ -66,15 +66,22 @@ bool BinTree::addNode(int id, string info){
 }
 
 //This method is longer since it does not use recursion. This is beneficial for large data trees.
+//This method was super difficult, so there will be extra comments in case I revisit this data structure.
 bool BinTree::removeNode(int id){
+	//Find what we want to delete and set it equal to target. If a parent exist set it, if not parent will remain NULL.
+	//If there is no parent (i.e. root == target) then we know we are working on the root node.
 	DataNode * parent = NULL, * target = root;
 	while(target && target->id != id){
 		parent = target;
 		target = target->id > id ? target->left : target->right;
 	}
 	
+	//If we found what we want to delete, make cases depending on the target's children (wow that sounds bad).
 	if(target && target->id == id){
-		if(target->left && target->right){
+		if(target->left && target->right){ //most difficult case
+			//we are not going to delete the target; instead we will replace it's data with the minimum node of the target's right branch (not necessiarly its right child).
+			//the minimum node in the target's right branch will be greater than all nodes in the target's left branch by definition of a binary search tree.
+			//once replaced, we delete the minimum node ensuring that there are no dangling pointers in the minimum node's parent; the minimum node should be a leaf.
 			DataNode * minParent = target, * min = target->right;
 			while(min->left){
 				minParent = min;
@@ -87,18 +94,18 @@ bool BinTree::removeNode(int id){
 			else minParent->left == min ? minParent->left = NULL : minParent->right = NULL;
 			delete min;
 		}
-		else if(target->left){
-			if(root == target) root = target->left;
+		else if(target->left){ //target has one child; replace root pointer if no parent, else replace parent pointer
+			if(!parent) root = target->left;
 			else parent->left == target ? parent->left = target->left : parent->right = target->left;
 			delete target;
 		}			
 		else if(target->right){
-			if(root == target) root = target->right;
+			if(!parent) root = target->right;
 			else parent->left == target ? parent->left = target->right : parent->right = target->right;
 			delete target;
 		}			
-		else{
-			if(root == target) root = NULL;
+		else{//easiest; delete makeing sure there are no dangling pointers in the parent.
+			if(!parent) root = NULL;
 			else parent->left == target ? parent->left = NULL : parent->right = NULL;
 			delete target;
 		}
