@@ -6,6 +6,7 @@
 #define MAIN_H
 
 #include <iostream>
+#include <time.h>
 #include "bintree.h"
 #include "functions.h"
 
@@ -15,5 +16,5 @@
 using std::cout;
 using std::endl;
 
-#endif /* MAIN_H */
+#endif
 

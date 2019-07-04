@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     tempid = random_range(10, 100);
     binSearchTree->contains(tempid) ? cout << "contains " << tempid : cout << "dose NOT contain " << tempid;
     cout << endl;
-    if (binSearchTree->getNode(&tempData, tempid)) {
+    if (binSearchTree->getNode(tempid, &tempData)) {
         cout << "retrieved: " << tempData.id << " " << tempData.information << endl;
     } else {
         cout << "NOT found: " << tempid << endl;
@@ -109,31 +109,31 @@ int main(int argc, char** argv) {
     cout << "==============================================" << endl;
 
     tempid = ids1[random_range(0, TREESIZE1 - 1)];
-    if (binSearchTree->getNode(&tempData, tempid)) {
+    if (binSearchTree->getNode(tempid, &tempData)) {
         cout << "retrieved: " << tempData.id << " " << tempData.information << endl;
     } else {
         cout << "NOT found: " << tempid << endl;
     }
     tempid = ids1[random_range(0, TREESIZE1 - 1)];
-    if (binSearchTree->getNode(&tempData, tempid)) {
+    if (binSearchTree->getNode(tempid, &tempData)) {
         cout << "retrieved: " << tempData.id << " " << tempData.information << endl;
     } else {
         cout << "NOT found: " << tempid << endl;
     }
     tempid = ids1[random_range(0, TREESIZE1 - 1)];
-    if (binSearchTree->getNode(&tempData, tempid)) {
+    if (binSearchTree->getNode(tempid, &tempData)) {
         cout << "retrieved: " << tempData.id << " " << tempData.information << endl;
     } else {
         cout << "NOT found: " << tempid << endl;
     }
     tempid = 1;
-    if (binSearchTree->getNode(&tempData, tempid)) {
+    if (binSearchTree->getNode(tempid, &tempData)) {
         cout << "retrieved: " << tempData.id << " " << tempData.information << endl;
     } else {
         cout << "NOT found: " << tempid << endl;
     }
     tempid = 1000;
-    if (binSearchTree->getNode(&tempData, tempid)) {
+    if (binSearchTree->getNode(tempid, &tempData)) {
         cout << "retrieved: " << tempData.id << " " << tempData.information << endl;
     } else {
         cout << "NOT found: " << tempid << endl;

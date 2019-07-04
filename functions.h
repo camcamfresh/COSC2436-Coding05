@@ -9,5 +9,5 @@
 
 int random_range(int, int);
 
-#endif /* HEADER_H */
+#endif
 

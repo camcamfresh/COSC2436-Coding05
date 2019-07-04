@@ -13,9 +13,8 @@ struct Data {
     string information;
 };
 
-struct DataNode {
-    Data data;
+struct DataNode : Data {
     DataNode *left, *right;
 };
 
-#endif /* DATA_H */
+#endif
