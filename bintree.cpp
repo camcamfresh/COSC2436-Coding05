@@ -57,8 +57,45 @@ bool BinTree::addNode(int id, string info){
 	return true;
 }
 
-bool BinTree::removeNode(int){
-	return false;
+bool BinTree::removeNode(int id){
+	DataNode * parent = NULL, * search = root;
+	while(search && search->id != id){
+		parent = search;
+		search = id < search->id ? search->left : search->right;
+	}
+	if(search == NULL) return false; //id not found.
+	if(search->left && search->right){
+		DataNode * minParent = root, * min = search->right;
+		while(min->left){
+			minParent = min;
+			min = min->left;
+		}
+		search->id = min->id;
+		search->information = min->information;
+		removeNode(min, minParent);
+	}
+	else removeNode(search, parent);
+	return true;
+}
+
+bool BinTree::removeNode(DataNode * target, DataNode * parent){
+	if(target->left){
+		if(parent) parent->left == target ? parent->left = target->left : parent->right = target->left;
+		else root = target->left;
+	}
+	else if(target->right){
+		if(parent) parent->right == target ? parent->right = target->right : parent->left = target->right;
+		else root = target->right;
+	}
+	else if(parent) parent->left == target ? parent->left = NULL : parent->right = NULL;
+	delete target;
+	size--;
+	return true;
+}
+
+DataNode * findMin(DataNode * actingRoot){
+	while(actingRoot->left) actingRoot = actingRoot->left;
+	return actingRoot;
 }
 
 //This method is longer since it does not use recursion and contains the work for contains()
