@@ -5,6 +5,8 @@
 
 class BinTree{
 private:
+	DataNode * root;
+	int size;
 
 public:
 	BinTree();

@@ -1,21 +1,31 @@
 #include "bintree.h"
 	
 BinTree::BinTree(){
-	
+	root = NULL;
+	size = 0;
 }
+
 BinTree::~BinTree(){
-	
+	clear();
 }
 	
 bool BinTree::isEmpty(){
-	return false;
+	return size == 0;
 }
+
 int BinTree::getCount(){
-	return -1;
+	return size;
 }
+
 bool BinTree::getRootData(Data *){
-	return false;
+	if(root) *output = *root; //object slicing
+	else{
+		output->id = -1;
+		output->information = "";
+	}
+	return root;
 }
+
 void BinTree::clear(){
 	
 }
